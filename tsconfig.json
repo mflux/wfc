@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "sourceRoot": "./src/",
+    "rootDir": "./src/",
+    "outDir": "./app/",
+    "module": "es6",
+    "plugins": [
+      {
+        "transform": "@zoltu/typescript-transformer-append-js-extension/output/index.js",
+        "after": true,
+      }
+    ]
+  }
+}

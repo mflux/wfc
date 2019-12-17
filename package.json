@@ -1,0 +1,21 @@
+{
+  "name": "wfc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx ttsc -w --project tsconfig.json",
+    "test": "ts-node -O \"{\"\"module\"\":\"\"commonjs\"\"}\" node_modules/jasmine/bin/jasmine --config=jasmine.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/jasmine": "^3.5.0",
+    "@zoltu/typescript-transformer-append-js-extension": "^1.0.1",
+    "jasmine": "^3.5.0",
+    "ts-node": "^8.5.4",
+    "ttypescript": "^1.5.8",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {}
+}

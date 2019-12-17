@@ -1,0 +1,37 @@
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Roboto;
+  }
+
+  canvas {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    border: solid;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.1);
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+  }
+
+  #controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+</style>
+
+<body>
+  <script src="demo.js" type="module" crossorigin="anonymous" defer></script>
+  <div style="display:block">
+    <button id="step">Step</button>
+    <button id="play">Play</button>
+  </div>
+</body>
