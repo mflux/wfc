@@ -1,8 +1,8 @@
 export interface TileData {
-  up: string[];
-  right: string[];
-  down: string[];
-  left: string[];
+  up: boolean;
+  right: boolean;
+  down: boolean;
+  left: boolean;
 }
 
 export function RotateClockwise(tileData:TileData) {
@@ -19,6 +19,6 @@ export function RotateCounterClockwise(tileData: TileData) {
     up: tileData.right,
     right: tileData.down,
     down: tileData.left,
-    left: tileData.down,
+    left: tileData.up,
   };
 }

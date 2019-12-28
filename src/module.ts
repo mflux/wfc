@@ -8,7 +8,6 @@ export class Module {
     this.canvas = document.createElement('canvas');
 
     const radians = degrees * Math.PI / 180;
-    console.log(radians);
 
     const image = document.createElement('img') as HTMLImageElement;
     image.addEventListener('load', () => {
@@ -27,28 +26,23 @@ export class Module {
 
     switch (degrees) {
       case 90:
-        this.tileData = RotateClockwise(tileData);
+        this.tileData = RotateClockwise(this.tileData);
         break;
       case 180:
-        this.tileData = RotateClockwise(tileData);
-        this.tileData = RotateClockwise(tileData);
+        this.tileData = RotateClockwise(this.tileData);
+        this.tileData = RotateClockwise(this.tileData);
         break;
       case 270:
-          this.tileData = RotateCounterClockwise(tileData);
+          this.tileData = RotateCounterClockwise(this.tileData);
         break;
       case 0:
       default:
         break;
     }
 
-    for (let key in tileData) {
-      const arr: string[] = tileData[key];
-      this.tileData[key] = arr.map(id => {
-        return generateId(id, degrees);
-      });
-    }
-
     this.name = generateId(name, degrees);
+
+    console.log(this.name, this.tileData);
   }
 }
 

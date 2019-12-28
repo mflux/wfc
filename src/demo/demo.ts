@@ -14,15 +14,12 @@ async function main() {
   for (let key in tiles) {
     const pathToImage = `${tilesetPath}/${key}.png`;
     const tileData = tiles[key];
-    const degrees = 0;
-    // PossibleRotations.forEach(degrees => {
+    PossibleRotations.forEach(degrees => {
       modules.push(new Module(key, pathToImage, tileData, degrees));
-    // });
+    });
   }
 
   console.log(modules);
-
-  // console.log(modules);
 
   const moduleSize = 16;
   const slotsWidth = 16;
@@ -37,7 +34,6 @@ async function main() {
   const ctx = canvas.getContext('2d');
   ctx.imageSmoothingEnabled = false;
 
-
   const grid = new Grid(modules, slotsWidth, slotsHeight);
   setTimeout(() => {
     Render(grid, ctx, slotsWidth, slotsHeight, moduleSize)
@@ -46,20 +42,27 @@ async function main() {
   RandomlyReduceEntropy(grid);
 
   function step() {
-    if (Collapse(grid) === false) {
+    const stable = Collapse(grid);
+    if(stable){
       RandomlyReduceEntropy(grid);
-    };
-    Render(grid, ctx, slotsWidth, slotsHeight, moduleSize);
+    }
   }
 
   document.querySelector('#step').addEventListener('click', () => {
     step();
+    Render(grid, ctx, slotsWidth, slotsHeight, moduleSize);
   });
 
-  document.querySelector('#play').addEventListener('click', () => {
-    setInterval(() => {
+  function animate(){
+    for(let i=0; i<6; i++){
       step();
-    }, 10);
+    }
+    Render(grid, ctx, slotsWidth, slotsHeight, moduleSize);
+    requestAnimationFrame(animate);
+  }
+
+  document.querySelector('#play').addEventListener('click', () => {
+    animate();
   });
 
   canvas.addEventListener('click', e => {
@@ -78,25 +81,6 @@ function Render(grid: Grid, ctx: CanvasRenderingContext2D, slotsWidth: number, s
   ctx.globalAlpha = 1;
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-  // ctx.strokeStyle = 'black 1px';
-  // ctx.fillStyle = 'none';
-  // for (let y = 0; y < slotsHeight; y++){
-  //   const ypx = y * moduleSize;
-  //   ctx.beginPath();
-  //   ctx.moveTo(0, ypx);
-  //   ctx.lineTo(canvasWidth, ypx);
-  //   ctx.closePath();
-  //   ctx.stroke();
-  // }
-  // for (let x = 0; x < slotsWidth; x++){
-  //   const xpx = x * moduleSize;
-  //   ctx.beginPath();
-  //   ctx.moveTo(xpx, 0);
-  //   ctx.lineTo(xpx, canvasHeight);
-  //   ctx.closePath();
-  //   ctx.stroke();
-  // }
-
   for (const index of grid.indices()) {
     const { x, y } = index;
     const alpha = 1 / index.slot.possibleModules.length;
@@ -111,7 +95,7 @@ function Render(grid: Grid, ctx: CanvasRenderingContext2D, slotsWidth: number, s
 }
 
 function RandomlyReduceEntropy(grid:Grid) {
-  const lowestSlots = FindLowestEntropy(grid.slots);
+  const lowestSlots = FindLowestEntropySlots(grid.slots);
   if (lowestSlots.length <= 0) {
     return;
   }
@@ -121,36 +105,32 @@ function RandomlyReduceEntropy(grid:Grid) {
 }
 
 function Collapse(grid: Grid) {
-  let didCollapse = false;
+  let stable = true;
 
   for (const index of grid.indices()) {
     if (index.slot.possibleModules.length <= 1) {
-      // Paradox.
       continue;
     }
     for (const neighbor of grid.adjacentIndices(index.x, index.y)) {
-      const toThisIndexDirection = neighbor.oppositeDirection;
-
+      const neighborSlot = neighbor.slot;
       index.slot.possibleModules = index.slot.possibleModules.filter(module => {
-        const moduleName = module.name;
-        const neighborTilesMakingThisPossible: Set<string> = neighbor.slot.possibleTiles[toThisIndexDirection];
+        const outgoing: boolean = module.tileData[neighbor.direction];
+        const keep = neighborSlot.possibleModules.some(neighborModule => {
+          const incoming: boolean = neighborModule.tileData[neighbor.oppositeDirection];
+          return incoming === outgoing;
+        });
 
-        if (neighborTilesMakingThisPossible == undefined) {
-          console.log(false);
-          didCollapse = false;
-          return false;
-        }
-        const keep = Array.from(neighborTilesMakingThisPossible).indexOf(moduleName) >= 0;
-        didCollapse = keep && didCollapse;
+        stable = keep && stable;
+
         return keep;
       });
     }
   }
 
-  return didCollapse;
+  return stable;
 }
 
-function FindLowestEntropy(slots: Slot[]) {
+function FindLowestEntropySlots(slots: Slot[]) {
   let lowestCount = Number.MAX_VALUE;
   let lowestSlots: Slot[] = [];
 

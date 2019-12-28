@@ -1,200 +1,22 @@
 {
   "tiles": {
-    "T0": {
-      "up": [
-        "T0",
-        "T6",
-        "T5",
-        "T8"
-      ],
-      "right": [
-        "T0",
-        "T1",
-        "T3",
-        "T7"
-      ],
-      "down": [
-        "T0",
-        "T1",
-        "T3"
-      ],
-      "left": [
-        "T0",
-        "T5",
-        "T6",
-        "T1",
-        "T7"
-      ]
+    "empty": {
+      "up": false, "right": false, "down": false, "left": false
     },
-    "T1": {
-      "up": [
-        "T0",
-        "T6",
-        "T7",
-        "T8",
-        "T5"
-      ],
-      "right": [
-        "T0",
-        "T3",
-        "T6",
-        "T7"
-      ],
-      "down": [
-        "T4",
-        "T5",
-        "T6",
-        "T7",
-        "T8"
-      ],
-      "left": [
-        "T0",
-        "T5",
-        "T6",
-        "T7"
-      ]
+    "cross": {
+      "up": true, "right": true, "down": true, "left": true
     },
-    "T3": {
-      "up": [
-        "T0",
-        "T6",
-        "T8",
-        "T5"
-      ],
-      "right": [
-        "T4",
-        "T5",
-        "T8"
-      ],
-      "down": [
-        "T6",
-        "T7",
-        "T8",
-        "T4"
-      ],
-      "left": [
-        "T0",
-        "T1",
-        "T5",
-        "T6",
-        "T7"
-      ]
+    "corner": {
+      "up": false, "right": true, "down": true, "left": false
     },
-    "T4": {
-      "up": [
-        "T1",
-        "T6",
-        "T3",
-        "T4"
-      ],
-      "right": [
-        "T5",
-        "T8",
-        "T4"
-      ],
-      "down": [
-        "T7",
-        "T6",
-        "T5",
-        "T8",
-        "T4"
-      ],
-      "left": [
-        "T3",
-        "T8",
-        "T4"
-      ]
+    "end": {
+      "up": false, "right": false, "down": true, "left": false
     },
-    "T5": {
-      "up": [
-        "T1",
-        "T3",
-        "T4"
-      ],
-      "right": [
-        "T0",
-        "T3",
-        "T6",
-        "T7",
-        "T1"
-      ],
-      "down": [
-        "T1",
-        "T3",
-        "T0"
-      ],
-      "left": [
-        "T4",
-        "T3",
-        "T8"
-      ]
+    "fork": {
+      "up": true, "right": true, "down": false, "left": true
     },
-    "T6": {
-      "up": [
-        "T3",
-        "T4",
-        "T1"
-      ],
-      "right": [
-        "T0",
-        "T1",
-        "T3",
-        "T7"
-      ],
-      "down": [
-        "T0",
-        "T1",
-        "T3"
-      ],
-      "left": [
-        "T0",
-        "T1",
-        "T7",
-        "T5"
-      ]
-    },
-    "T7": {
-      "up": [
-        "T4",
-        "T1",
-        "T3"
-      ],
-      "right": [
-        "T3",
-        "T0",
-        "T1",
-        "T6"
-      ],
-      "down": [
-        "T0",
-        "T1",
-        "T3"
-      ],
-      "left": [
-        "T0",
-        "T1",
-        "T6",
-        "T5"
-      ]
-    },
-    "T8": {
-      "up": [
-        "T4",
-        "T1"
-      ],
-      "right": [
-        "T5",
-        "T4"
-      ],
-      "down": [
-        "T0",
-        "T1",
-        "T3"
-      ],
-      "left": [
-        "T4",
-        "T3"
-      ]
+    "line": {
+      "up": true, "right": false, "down": true, "left": false
     }
   }
 }
